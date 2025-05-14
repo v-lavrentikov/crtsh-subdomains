@@ -13,6 +13,10 @@ It can also be used with the `dig` tool:
 ```
 crtsh-subdomains example.com | while read OUT; do dig $OUT +nostats +nocomments +nocmd; done
 ```
+To output in JSON format, use the `-json` flag:
+```
+crtsh-subdomains -json example.com
+```
 
 ## Project Support
 You can support this project by donating to the following Ethereum wallet:

@@ -2,11 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
-	"os"
 	"regexp"
 	"sort"
 	"strings"
@@ -23,11 +23,18 @@ type CrtshRecord struct {
 }
 
 func main() {
-	if len(os.Args) < 2 {
+	useJson := flag.Bool("json", false, "Output in JSON format")
+	flag.Parse()
+
+	args := flag.Args()
+	if len(args) < 1 {
 		log.Fatal("Domain name is not specified")
 	}
+	if len(args) > 1 {
+		log.Fatal("Invalid order or too many arguments")
+	}
 
-	domain := strings.ToLower(os.Args[1])
+	domain := strings.ToLower(args[0])
 	if ok, _ := regexp.MatchString(RE_DOMAIN, domain); !ok {
 		log.Fatal("Invalid domain name")
 	}
@@ -37,13 +44,16 @@ func main() {
 		log.Fatal(err)
 	}
 
-	subdomains, err := parse(data, domain)
+	subdomainsMap, err := parse(data, domain)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	for _, subdomain := range sortedKeys(subdomains) {
-		fmt.Println(subdomain)
+	subdomains := sortedKeys(subdomainsMap)
+	if *useJson {
+		printJson(subdomains)
+	} else {
+		printText(subdomains)
 	}
 }
 
@@ -84,6 +94,20 @@ func parse(data []byte, domain string) (map[string]bool, error) {
 	}
 
 	return domains, nil
+}
+
+func printJson(subdomains []string) {
+	bts, err := json.Marshal(subdomains)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(bts))
+}
+
+func printText(subdomains []string) {
+	for _, subdomain := range subdomains {
+		fmt.Println(subdomain)
+	}
 }
 
 func sortedKeys(m map[string]bool) []string {

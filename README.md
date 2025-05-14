@@ -15,4 +15,4 @@ You can support this project by donating to the following Ethereum wallet:
 
 ethereum:0x0468DcdE81b69b87ea0A546faA6c5aae2F4FE30b
 
-![ethereum:0x0468DcdE81b69b87ea0A546faA6c5aae2F4FE30b](https://github.com/user-attachments/assets/443e8276-69df-46fd-8141-e1fd5867026c)
+![ethereum:0x0468DcdE81b69b87ea0A546faA6c5aae2F4FE30b](https://github.com/user-attachments/assets/43858c46-3d18-4899-b42b-55df0b2b1eaa)

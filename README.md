@@ -1,0 +1,18 @@
+# crtsh-subdomains
+Simple tool to find subdomains using crt.sh search
+
+## Description
+This tool uses `https://crt.sh` website to find subdomains using domain name search. It parses the received JSON response and extracts the properly formatted subdomains from the `name_value` field in the resulting JSON array.
+
+## Execution
+Run the application with the domain name as an argument:
+```
+crtsh example.com
+```
+
+## Project Support
+You can support this project by donating to the following Ethereum wallet:
+
+ethereum:0x0468DcdE81b69b87ea0A546faA6c5aae2F4FE30b
+
+![ethereum:0x0468DcdE81b69b87ea0A546faA6c5aae2F4FE30b](https://github.com/user-attachments/assets/443e8276-69df-46fd-8141-e1fd5867026c)

@@ -15,7 +15,7 @@ crtsh-subdomains example.com | while read OUT; do dig $OUT +nostats +nocomments 
 ```
 To output in JSON format, use the `-json` flag:
 ```
-crtsh-subdomains -json example.com
+crtsh-subdomains -json example.com > subdomains.json
 ```
 
 ## Project Support

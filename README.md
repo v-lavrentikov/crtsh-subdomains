@@ -7,7 +7,11 @@ This tool uses `https://crt.sh` website to find subdomains using domain name sea
 ## Execution
 Run the application with the domain name as an argument:
 ```
-crtsh example.com
+crtsh-subdomains example.com
+```
+It can also be used with the `dig` tool:
+```
+crtsh-subdomains example.com | while read OUT; do dig $OUT +nostats +nocomments +nocmd; done
 ```
 
 ## Project Support

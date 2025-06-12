@@ -55,6 +55,8 @@ func main() {
 	} else {
 		printText(subdomains)
 	}
+
+	log.Printf("OK, %d subdomains found\n", len(subdomains))
 }
 
 func fetch(domain string) ([]byte, error) {

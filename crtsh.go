@@ -18,6 +18,8 @@ const (
 	RE_DOMAIN        = `^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$`
 )
 
+type DomainsSet map[string]struct{}
+
 type CrtshRecord struct {
 	NameValue string `json:"name_value"`
 }
@@ -76,8 +78,8 @@ func fetch(domain string) ([]byte, error) {
 	return io.ReadAll(resp.Body)
 }
 
-func parse(data []byte, domain string) (map[string]bool, error) {
-	domains := make(map[string]bool)
+func parse(data []byte, domain string) (DomainsSet, error) {
+	domains := make(DomainsSet)
 	r := regexp.MustCompile(fmt.Sprintf(RE_SUBDOMAIN_TPL, domain))
 
 	var records []CrtshRecord
@@ -90,7 +92,7 @@ func parse(data []byte, domain string) (map[string]bool, error) {
 		for _, line := range lines {
 			line = strings.TrimFunc(line, unicode.IsSpace)
 			if r.MatchString(line) {
-				domains[line] = true
+				domains[line] = struct{}{}
 			}
 		}
 	}
@@ -112,7 +114,7 @@ func printText(subdomains []string) {
 	}
 }
 
-func sortedKeys(m map[string]bool) []string {
+func sortedKeys(m DomainsSet) []string {
 	keys := make([]string, 0, len(m))
 	for key := range m {
 		keys = append(keys, key)
